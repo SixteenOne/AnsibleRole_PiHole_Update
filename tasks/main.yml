@@ -1,0 +1,15 @@
+---
+# tasks file for roles/pihole_update
+- name: Check whether there are any updates for PiHole
+  ansible.builtin.command: pihole -up --check-only
+  register: pihole_update_check
+  changed_when: false
+
+- name: Debug Check for PiHole stdout
+  ansible.builtin.debug:
+    msg: '{{ pihole_update_check }}'
+  when: pihole_update_debug is defined and pihole_update_debug | bool
+
+- name: Run PiHole Update via the CLI
+  ansible.builtin.command: pihole -up
+  when: pihole_update_check is search("update available") and pihole_update_run is defined and pihole_update_run | bool
