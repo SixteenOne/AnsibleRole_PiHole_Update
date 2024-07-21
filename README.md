@@ -29,7 +29,7 @@ Include this role in your playbook to ensure your PiHole installations are kept 
   hosts: pihole_servers
   gather_facts: false
   roles:
-    - role: pihole_update
+    - role: sixteenone.pihole-update
       pihole_update_debug: true
       pihole_update_run: true
 ```
